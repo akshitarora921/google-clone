@@ -5,7 +5,7 @@ import MicIcon from "@material-ui/icons/Mic";
 import { Button } from "@material-ui/core";
 import "../css/search.css";
 
-function Search({ hideButtons = false }) {
+function Search({ hideButtons = false, value = "" }) {
   const [input, setInput] = useState("");
   const history = useHistory();
   const search = (e) => {
@@ -19,10 +19,10 @@ function Search({ hideButtons = false }) {
         <SearchIcon className="search-input-icon" />
         <input
           type="text"
-          value={input}
+          value={input.length > 0 ? input : value}
           onChange={(e) => setInput(e.target.value)}
         />
-        <MicIcon style={{ color: "#9aa0a6" }} />
+        <MicIcon className='search-input-micIcon' style={{ color: "#9aa0a6" }} />
       </div>
       {!hideButtons ? (
         <div className="search-buttons">

@@ -13,6 +13,12 @@
   margin-left: 10px;
   color: #9aa0a6;
 }
+.search-input-micIcon {
+  position: absolute;
+  z-index: 10;
+  right: 31.5%;
+  color: #9aa0a6;
+}
 .search-input input {
   font-size: 16px;
   background-color: transparent;
