@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { search as GoogleSearch } from "../store/rootSlice";
 import { useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import MicIcon from "@material-ui/icons/Mic";
@@ -7,10 +9,11 @@ import "../css/search.css";
 
 function Search({ hideButtons = false, value = "" }) {
   const [input, setInput] = useState("");
+  const dispatch = useDispatch();
   const history = useHistory();
   const search = (e) => {
     e.preventDefault();
-    console.log(input);
+    dispatch(GoogleSearch(input));
     history.push(`/search/query=${input}`);
   };
   return (
@@ -22,7 +25,10 @@ function Search({ hideButtons = false, value = "" }) {
           value={input.length > 0 ? input : value}
           onChange={(e) => setInput(e.target.value)}
         />
-        <MicIcon className='search-input-micIcon' style={{ color: "#9aa0a6" }} />
+        <MicIcon
+          className="search-input-micIcon"
+          style={{ color: "#9aa0a6" }}
+        />
       </div>
       {!hideButtons ? (
         <div className="search-buttons">

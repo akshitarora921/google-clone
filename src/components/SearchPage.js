@@ -1,5 +1,6 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import useGoogleSearch from "../useGoogleSearch";
 import Search from "./Search";
 // import Response from "../response";
@@ -12,15 +13,16 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import "../css/searchpage.css";
 
 function SearchPage() {
-  const { query } = useParams();
+  // const { query } = useParams();
+  const query = useSelector((state) => state.query);
 
   //   Live API call
-  const { data } = useGoogleSearch(query.slice(6));
+  const { data } = useGoogleSearch(query);
 
   // const data = Response;
   // console.log(query, data);
   return (
-    <div clasName="searchpage">
+    <div className="searchpage">
       <div className="searchpage-header">
         <Link to="/">
           <img
@@ -30,7 +32,7 @@ function SearchPage() {
           />
         </Link>
         <div className="searchpage-headerbody">
-          <Search hideButtons value={query.slice(6)} />
+          <Search hideButtons value={query} />
           <div className="searchpage-options">
             <div className="searchpage-options-left">
               <div className="searchpage-option">
@@ -69,14 +71,14 @@ function SearchPage() {
           </div>
         </div>
       </div>
-      {query.slice(6).length > 0 && (
+      {query?.length > 0 && (
         <div className="searchpage-results">
           <p className="searchpage-resultCount">
             About {data?.searchInformation.formattedTotalResults} results{" "}
-            {data?.searchInformation.formattedSearchTime} for {query.slice(6)}
+            {data?.searchInformation.formattedSearchTime} for {query}
           </p>
-          {data?.items.map((item) => (
-            <div className="searchpage-result">
+          {data?.items?.map((item, index) => (
+            <div key={index} className="searchpage-result">
               <a href={item.link}>{item.displayLink}</a>
               <a className="searchpage-result-title" href={item.link}>
                 <h2>{item.title}</h2>
